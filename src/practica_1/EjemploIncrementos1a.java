@@ -1,5 +1,7 @@
 package practica_1;
 
+import java.util.Scanner;
+
 // ============================================================================
 class CuentaIncrementos1a {
 // ============================================================================
@@ -32,20 +34,26 @@ class EjemploIncrementos1a {
     }
     try {
       numHebras = Integer.parseInt( args[ 0 ] );
-    } catch( NumberFormatException ex ) {
+
+      CuentaIncrementos1a cont = new CuentaIncrementos1a();
+
+      Thread[] vecThread = new Thread[numHebras];
+
+      for (int i = 0; i < numHebras; i++){
+        vecThread[i] =  new MiHebra(cont.dameContador());
+        vecThread[i].start();
+        vecThread[i].join();
+        cont.incrementaContador();
+      }
+
+      System.out.println("El contador vale: " + cont.dameContador());
+
+    } catch(NumberFormatException | InterruptedException ex ) {
       numHebras = -1;
       System.out.println( "ERROR: Argumentos numericos incorrectos." );
       System.exit( -1 );
     }
 
-    System.out.println( "numHebras: " + numHebras );
-
-    CuentaIncrementos1a cont = new CuentaIncrementos1a();
-
-    for (int i = 0; i < numHebras; i++){
-      new MiHebra(cont.dameContador()).start();
-      cont.incrementaContador();
-    }
   }
 
   static class MiHebra extends Thread {
@@ -60,7 +68,7 @@ class EjemploIncrementos1a {
       int num_impresinos = 1000000;
       System.out.println("Empieza la hebra: " + miId );
       for (int i = 0; i < num_impresinos; i++ ){
-        objeto += objeto;
+        objeto += i;
       }
       System.out.println("Valor del objeto: " + objeto );
       System.out.println("Finaliza la hebra: " + miId );

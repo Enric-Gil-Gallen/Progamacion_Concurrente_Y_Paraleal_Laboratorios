@@ -35,7 +35,6 @@ class eje_2 {
         h1.start();
         h1.join();
 
-
         System.out.println("Final del programa");
 
     }

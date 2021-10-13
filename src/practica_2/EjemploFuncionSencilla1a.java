@@ -1,7 +1,7 @@
 package practica_2;
 
 // ============================================================================
-class EjemploFuncionCostosa1a {
+class EjemploFuncionSencilla1a {
 // ============================================================================
 
     // --------------------------------------------------------------------------
@@ -13,14 +13,11 @@ class EjemploFuncionCostosa1a {
         // Comprobacion y extraccion de los argumentos de entrada.
         if (args.length != 2) {
             System.err.println("Uso: java programa <numHebras> <tamanyo>");
-//            System.exit(-1);
+            System.exit(-1);
         }
         try {
-            numHebras = 1;
-            n = 10000000;
-
-//            numHebras = Integer.parseInt(args[0]);
-//            n = Integer.parseInt(args[1]);
+            numHebras = Integer.parseInt(args[0]);
+            n = Integer.parseInt(args[1]);
         } catch (NumberFormatException ex) {
             numHebras = -1;
             n = -1;
@@ -162,7 +159,7 @@ class EjemploFuncionCostosa1a {
 
     // --------------------------------------------------------------------------
     static double evaluaFuncion(double x) {
-        return Math.sin(Math.exp(-x) + Math.log1p(x));
+        return 3.5 * x;
     }
 
     // --------------------------------------------------------------------------

@@ -26,10 +26,7 @@ class EjemploMuestraNumeros1_2_bloques {
         // Crea y arranca el vector de hebras.
         Thread[] vectorHebras = new Thread[numHebras];
         for (int i = 0; i < numHebras; i++) {
-            vectorHebras[i] = new MyThread(i, n, numHebras);
-        }
-
-        for (int i = 0; i < numHebras; i++) {
+            vectorHebras[i] = new Ej1_MyThreadBloques(i, n, numHebras);
             vectorHebras[i].start();
         }
 
@@ -45,29 +42,6 @@ class EjemploMuestraNumeros1_2_bloques {
 
     }
 
-    static class MyThread extends Thread {
-        int miId, nElem, numHebras;
-
-        public MyThread(int miId, int nElem, int numHebras) {
-            this.miId = miId;
-            this.nElem = nElem;
-            this.numHebras = numHebras;
-        }
-
-        // Implementacion paralela con distribucion ciclica
-        public void run() {
-
-            int tamBloque = (nElem + numHebras - 1) / numHebras;
-            int iniElem = tamBloque * miId;
-            int finElem = Math.min(iniElem + tamBloque, nElem);
-
-            for (int i = iniElem; i < finElem; i++)
-                System.out.print(i + " ");
-
-            System.out.println("-------------------");
-        }
-
-
-    }
-
 }
+
+

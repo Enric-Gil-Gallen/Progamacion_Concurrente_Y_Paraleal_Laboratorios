@@ -5,6 +5,7 @@ import static practica_3.EjemploMuestraPrimosEnVector2a.esPrimo;
 public class MiHebraPrimoDistCiclica extends Thread {
     int miId, numHebdas;
     long[] vectorNumeros;
+    private String[] vectorLineas;
 
     public MiHebraPrimoDistCiclica(int miId, int numHebdas, long[] vectorNumeros) {
         this.miId = miId;

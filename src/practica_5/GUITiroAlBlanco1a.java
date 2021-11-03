@@ -27,7 +27,8 @@ public class GUITiroAlBlanco1a {
   Point              objetivo;
 
   // Primera Colecion
-  static public final LinkedBlockingQueue<Proyectil> lD = new LinkedBlockingQueue<Proyectil>();
+  static public final LinkedBlockingQueue<NuevoDisparo1a> lD = new LinkedBlockingQueue<>();
+
 
 
   // --------------------------------------------------------------------------
@@ -40,13 +41,17 @@ public class GUITiroAlBlanco1a {
   public void go() {
     SwingUtilities.invokeLater( new Runnable() {
       public void run() {
-        generaGUI();
+        try {
+          generaGUI();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     } );
   }
   
   // --------------------------------------------------------------------------
-  public void generaGUI() {
+  public void generaGUI() throws InterruptedException {
     
     // Declaracion de variables locales.
     JPanel  tablero, informacion, controles, incdec;
@@ -64,6 +69,7 @@ public class GUITiroAlBlanco1a {
     // Creacion del canvas para el campo de tiro.
     //
     cnvCampoTiro = new CanvasCampoTiro1a();
+
     
     //
     // Creacion del panel de informacion (aciertos, fallos, etc.).
@@ -233,7 +239,9 @@ public class GUITiroAlBlanco1a {
           ang = Double.parseDouble( txfAnguloInicial.getText().trim() );
           if( ( 0.0 <= ang )&&( ang < 90 )&&( vel > 0 ) ) {
             txfInformacion.setText( "Calculando y dibujando trayectoria..." );
-            creaYMueveProyectil( new NuevoDisparo1a( vel, ang ) );
+            //creaYMueveProyectil( new NuevoDisparo1a( vel, ang ) );
+
+            lD.add(new NuevoDisparo1a( vel, ang ) );
           } else {
             txfInformacion.setText( "ERROR: Datos incorrectos." );
           }
@@ -269,6 +277,10 @@ public class GUITiroAlBlanco1a {
     System.out.println( "generaGUI. Coordenadas del objetivo: " +
                this.objetivo.x + "," + this.objetivo.y);
     cnvCampoTiro.guardaCoordenadasObjetivo( this.objetivo );
+
+
+    final Eje4_Hebra hebra = new Eje4_Hebra(lD, cnvCampoTiro, objetivo);
+    hebra.start();
   }
   
   // --------------------------------------------------------------------------

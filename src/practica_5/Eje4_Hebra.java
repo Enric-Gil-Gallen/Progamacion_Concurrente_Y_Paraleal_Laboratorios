@@ -50,7 +50,7 @@ public class Eje4_Hebra extends Thread {
                     @Override
                     public void run() {
                         // Dibuja el proyectil p.
-                        p.actualizaDibujoProyectil();
+                        //p.actualizaDibujoProyectil();
                     }
                 });
 
